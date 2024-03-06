@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <h1>Currency Converter</h1>
+    <form>
+        <label for="">From</label>
+        <select id="from">
+            <option value="USD">USD</option>
+            <option value="INR">INR</option>
+            <option value="EURO">EUR</option>
+        </select>
+        <label>To</label>
+        <select id="to">
+            <option value="USD">USD</option>
+            <option value="INR">INR</option>
+            <option value="EUR">EUR</option>
+        </select>
+        <label for="">Amount to convert</label>
+        <input type="text" id="amount">
+        <button type="button" id="convert">Convert</button>
+        <label for="">Result amount</label>
+        <p id="result"></p>
+    </form>
+    <script>
+        console.log("amaan")
+    const from = document.getElementById('from');
+    const to = document.getElementById('to');
+    const amount = document.getElementById('amount');
+    const result = document.getElementById('result');
+    const convert = document.getElementById('convert');
+    convert.addEventListener("click", function(){
+        let fromCurrency = from.value;
+        let toCurrency = to.value;
+         let amt = amount.value;
+         fetch(`https://api.exchangerate-api.com/v4/latest/${fromCurrency}`)
+         .then(res=>res.json())
+         .then(data=>{
+            let rate = data.rates[toCurrency];
+            let total = rate*amt;
+            result.textContent="total: "+total;
+            console.log(total);
+    })
+    })
+    </script>
+</body>
+
+</html>
